@@ -1,55 +1,112 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ads_Hub_25 - Delhi Bet</title>
+<title>Ads_Hub_25 - Cricket Exchange</title>
 <style>
-body{background:#0a1a0a;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
-.card{background:#152b15;padding:20px;border-radius:15px;margin:10px 0;border:1px solid #2ecc71}
-h1{color:#2ecc71}
-button{padding:14px 30px;border:none;border-radius:10px;font-weight:bold;margin:6px;cursor:pointer;font-size:17px}
-.red{background:#e74c3c;color:#fff}.green{background:#2ecc71;color:#fff}.blue{background:#3498db;color:#fff;width:90%}
-.coin{font-size:22px;color:gold}
-input{padding:12px;border-radius:8px;border:none;width:85%;margin:10px}
+body{background:#0f1419;color:#fff;font-family:Arial;margin:0;padding:0}
+.header{background:#1e2a38;padding:12px;text-align:center;position:sticky;top:0}
+.header h2{margin:0;color:#2ecc71}
+.tabs{display:flex;background:#15202b}
+.tab{flex:1;padding:12px;text-align:center;cursor:pointer;border-bottom:3px solid transparent}
+.tab.active{border-color:#2ecc71;color:#2ecc71;font-weight:bold;background:#1e2a38}
+.coins-bar{background:#1e2a38;padding:8px 15px;display:flex;justify-content:space-between}
+.match{background:#1e2a38;margin:10px;border-radius:12px;padding:12px;border-left:4px solid #2ecc71}
+.teams{font-weight:bold;font-size:16px}
+.odds{display:flex;gap:8px;margin-top:10px}
+.odds button{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.back{background:#3498db;color:#fff} .lay{background:#e74c3c;color:#fff}
+.live{color:#ff3b30;font-size:12px;animation:blink 1s infinite} @keyframes blink{50%{opacity:0}}
 </style>
 </head>
 <body>
-<h1>🇮🇳 Ads_Hub_25</h1>
-<h3 style="color:#aaa">Delhi Colour Bet Game</h3>
-<div class="card">
-<p class="coin">💰 Coins: <span id="coins">1000</span></p>
-<p>100 Coins ka Bet Lagao!</p>
-<button class="red" onclick="bet('red')">RED x2</button>
-<button class="green" onclick="bet('green')">GREEN x2</button>
-<p id="result" style="font-size:18px;margin-top:15px;font-weight:bold"></p>
+<div class="header"><h2>Ads_Hub_25 Exchange</h2></div>
+<div class="coins-bar"><span>💰 Coins: <b id="coins">5000</b></span><span id="user">ID: 664</span></div>
+<div class="tabs">
+<div class="tab active" onclick="showTab('cricket',this)">🏏 Cricket</div>
+<div class="tab" onclick="showTab('football',this)">⚽ Football</div>
+<div class="tab" onclick="showTab('casino',this)">🎰 Casino</div>
 </div>
-<div class="card">
-<h3>Withdraw - 1000 Coins = 100 Rs</h3>
-<input id="upi" placeholder="Apna UPI ID likho - ex: xyz@upi">
-<button class="blue" onclick="withdraw()">WhatsApp Pe Withdraw Mango</button>
-<p style="font-size:11px;color:#aaa">Payment aapke number pe 24hr me ayega</p>
+
+<div id="cricket">
+<div class="match">
+<div><span class="live">● LIVE</span> IPL 2026 - Match 42</div>
+<div class="teams">CSK vs MI</div>
+<div style="font-size:12px;color:#aaa">CSK need 34 runs in 24 balls</div>
+<div class="odds">
+<button class="back" onclick="bet('CSK','1.95')">CSK<br>1.95</button>
+<button class="lay" onclick="bet('MI','2.05')">MI<br>2.05</button>
 </div>
+</div>
+<div class="match">
+<div>Today 7:30 PM</div>
+<div class="teams">IND vs AUS - T20 World Cup</div>
+<div class="odds">
+<button class="back" onclick="bet('IND','1.85')">IND<br>1.85</button>
+<button class="lay" onclick="bet('AUS','2.10')">AUS<br>2.10</button>
+</div>
+</div>
+<div class="match">
+<div>Tomorrow 3:00 PM</div>
+<div class="teams">RCB vs KKR</div>
+<div class="odds">
+<button class="back" onclick="bet('RCB','2.20')">RCB<br>2.20</button>
+<button class="lay" onclick="bet('KKR','1.75')">KKR<br>1.75</button>
+</div>
+</div>
+</div>
+
+<div id="football" style="display:none">
+<div class="match" style="border-left-color:#f1c40f">
+<div><span class="live">● LIVE</span> Premier League</div>
+<div class="teams">Man City vs Arsenal</div>
+<div class="odds">
+<button class="back" onclick="bet('Man City','2.40')">1<br>2.40</button>
+<button class="back" onclick="bet('Draw','3.20')">X<br>3.20</button>
+<button class="lay" onclick="bet('Arsenal','2.90')">2<br>2.90</button>
+</div>
+</div>
+</div>
+
+<div id="casino" style="display:none">
+<div class="match" style="border-left-color:#e74c3c">
+<div class="teams">🎲 Colour Prediction</div>
+<div class="odds">
+<button class="back" style="background:#e74c3c" onclick="bet('RED','2.0')">RED x2</button>
+<button class="back" style="background:#2ecc71" onclick="bet('GREEN','2.0')">GREEN x2</button>
+</div>
+</div>
+</div>
+
 <script>
-let coins = parseInt(localStorage.getItem('coins')||'1000');
+let coins = parseInt(localStorage.getItem('coins')||'5000');
 document.getElementById('coins').innerText=coins;
-function bet(color){
- if(coins<100){alert('Coins kam hai!');return;}
- coins-=100;
- let win = Math.random()>0.5?'red':'green';
- let el=document.getElementById('result');
- if(color===win){coins+=200; el.innerHTML='✅ '+win.toUpperCase()+' AAYA! +200 Jeete'; el.style.color='#2ecc71';}
- else{ el.innerHTML='❌ '+win.toUpperCase()+' AAYA! Haar gaye'; el.style.color='#e74c3c';}
+function showTab(name,el){
+ document.getElementById('cricket').style.display=name=='cricket'?'block':'none';
+ document.getElementById('football').style.display=name=='football'?'block':'none';
+ document.getElementById('casino').style.display=name=='casino'?'block':'none';
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ el.classList.add('active');
+}
+function bet(team,rate){
+ if(coins<100){alert('Coins khatam!');return;}
+ let stake = prompt(team+" pe kitna lagana hai? Rate: "+rate+"\nMin 100 Coins","100");
+ if(!stake) return;
+ stake=parseInt(stake);
+ if(stake>coins){alert('Itne coins nahi hai');return;}
+ coins-=stake;
+ let win = Math.random()>0.45; // 55% win chance for demo
+ if(win){
+   let profit = Math.floor(stake*parseFloat(rate));
+   coins+=profit;
+   alert('✅ '+team+' JEET GAYA! Aapko '+profit+' Coins mile');
+ }else{
+   alert('❌ '+team+' Haar Gaya! '+stake+' Coins gaye');
+ }
  localStorage.setItem('coins',coins);
  document.getElementById('coins').innerText=coins;
-}
-function withdraw(){
- let upi=document.getElementById('upi').value;
- if(!upi){alert('Pehle UPI ID likho');return;}
- if(coins<1000){alert('1000 Coins chahiye');return;}
- let num="917051380755";
- let msg=`Hi Owner, Mujhe Withdraw Chahiye%0ACoins: ${coins}%0AAmount: 100 Rs%0AUPI: ${upi}`;
- window.open(`https://wa.me/${num}?text=${msg}`,'_blank');
+ // Withdraw ke liye aapke number pe bhejna ho to:
+ // window.open('https://wa.me/917051380755?text=Bet:'+team+' Stake:'+stake);
 }
 </script>
 </body>
