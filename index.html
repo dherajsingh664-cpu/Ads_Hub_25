@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ads_Hub_25 - Earn Money</title>
+<style>
+body{font-family:Arial;background:#0f0f0f;color:#fff;text-align:center;margin:0;padding:20px}
+.card{background:#1e1e1e;border-radius:15px;padding:20px;margin:15px auto;max-width:400px;box-shadow:0 0 10px #00ff88}
+button{background:#00ff88;color:#000;border:none;padding:12px 25px;border-radius:25px;font-weight:bold;font-size:16px;cursor:pointer;width:100%;margin-top:10px}
+button:hover{background:#00cc6a}
+h1{color:#00ff88}
+.ad-box{background:#2a2a2a;padding:15px;border-radius:10px;margin:10px 0;min-height:90px;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<h1>🚀 Ads_Hub_25</h1>
+<p>Watch Ads & Earn Rewards</p>
+
+<div class="card">
+<h3>💰 Daily Earning Task</h3>
+<div class="ad-box" id="ad1">Ad Loading... (Yaha AdSense lagayenge)</div>
+<button onclick="watchAd()">Watch Ad & Earn ₹10</button>
+<p id="status"></p>
+<h2>Balance: ₹<span id="bal">0</span></h2>
+</div>
+
+<div class="card">
+<h3>🔥 Trending Offers</h3>
+<p>Best High CPC Offers 2025</p>
+<div class="ad-box">Ad Space 300x250</div>
+</div>
+
+<script>
+let bal=0;
+function watchAd(){
+ document.getElementById('status').innerText='Ad watching... 5 sec';
+ document.getElementById('ad1').innerHTML='Thanks for watching Ad! ✅';
+ setTimeout(()=>{
+   bal+=10;
+   document.getElementById('bal').innerText=bal;
+   document.getElementById('status').innerText='₹10 Added! Keep Watching';
+ },5000);
+}
+</script>
+</body>
+</html>
 
